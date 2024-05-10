@@ -1,0 +1,22 @@
+on: [push, pull_request]
+
+# GitHub Action Set $GITHUB_ENV Not Saving
+# 2022
+# https://stackoverflow.com/questions/71333335/github-action-set-github-env-not-saving
+
+# based on
+# Example of writing an environment variable to GITHUB_ENV
+# https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+
+jobs:
+
+  build_windows_latest:
+    runs-on: windows-latest
+
+    steps:
+    - name: Print envrionment variable
+      shell: cmd
+      run: |
+        printf "ENV1=${{ env.ENV1 }}"
+        printf "ENV2=${{ env.ENV2 }}"
+
