@@ -14,9 +14,18 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Print envrionment variable
+    - name: Print envrionment variable in CMD
       shell: cmd
       run: |
-        printf "ENV1=${{ vars.ENV1 }}"
-        printf "ENV2=${{ vars.ENV2 }}"
+        printf "ENV1=${{ vars.ENV1 }}\n"
+        printf "ENV2=${{ vars.ENV2 }}\n"
+        printf "ENV1=${{ env.ENV1 }}\n"
+        printf "ENV2=${{ env.ENV2 }}\n"
+
+    - name: Print envrionment variable in powershell
+      run: |
+        echo "ENV1=${{ vars.ENV1 }}"
+        echo "ENV2=${{ vars.ENV2 }}"
+        echo "ENV1=${{ env.ENV1 }}"
+        echo "ENV2=${{ env.ENV2 }}"
 
