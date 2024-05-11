@@ -26,9 +26,9 @@ jobs:
           setup-python: 'false'
 
       - name: Test
-        shell: bash
+        shell: cmd
         run: |
-          echo QT_ROOT_DIR=${QT_ROOT_DIR}
-          ls -la ${{ github.workspace }}
-          ls -la ${{ github.workspace }}/Qt
+          echo QT_ROOT_DIR=%QT_ROOT_DIR%
+          dir "${{ github.workspace }}"
+          dir /s "${{ github.workspace }}\\Qt"
 
