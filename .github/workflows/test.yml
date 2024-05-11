@@ -97,7 +97,7 @@ jobs:
         run: echo "$MATRIX_CONTEXT"
 
   check_msvc2019_directory:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - name: Check MSVC2019 directory
         shell: cmd
