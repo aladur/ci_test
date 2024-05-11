@@ -10,7 +10,7 @@ jobs:
         config:
           - name: "Windows 2019"
             os: windows-2019
-            qt-version: '5.15.13'
+            qt-version: '5.15.2'
             arch: "win64_msvc2019_64"
             host: "windows"
     steps:
