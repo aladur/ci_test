@@ -8,10 +8,23 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - name: "Windows 2019"
+          - name: "Windows 2019 Qt5 Win32"
+            os: windows-2019
+            qt-version: '5.15.2'
+            arch: "win32_msvc2019"
+            arch1: "msvc2019"
+            host: "windows"
+          - name: "Windows 2019 Qt5 x64"
             os: windows-2019
             qt-version: '5.15.2'
             arch: "win64_msvc2019_64"
+            arch1: "msvc2019_64"
+            host: "windows"
+          - name: "Windows 2019 Qt6 x64"
+            os: windows-2019
+            qt-version: '6.7.0'
+            arch: "win64_msvc2019_64"
+            arch1: "msvc2019_64"
             host: "windows"
     steps:
       - name: Install Qt
@@ -29,6 +42,7 @@ jobs:
         shell: cmd
         run: |
           echo QT_ROOT_DIR=%QT_ROOT_DIR%
-          dir "${{ github.workspace }}"
           dir /s "${{ github.workspace }}\\Qt"
+          set QTDIR="${{ github.workspace }}\\Qt\\${{ config.matrix.qt-version }}\\${{ config.matrix.arch1 }}"
+          dir /s "%QTDIR%"
 
