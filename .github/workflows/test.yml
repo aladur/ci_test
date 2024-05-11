@@ -115,7 +115,4 @@ jobs:
         shell: bash
         run: |
           cd "/c/Program Files (x86)"
-          find . -name 2019 -print
-          find . -name Enterprise -print
-          find . -name Professional -print
-          find . -name Community -print
+          find . -name "2019" -print
