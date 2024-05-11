@@ -1,0 +1,99 @@
+on: [ push ]
+
+jobs:
+  build_ubuntu_latest:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set the value with bash
+      shell: bash
+      run: |
+        echo "BG_COLOR=yellow" >> $GITHUB_ENV
+        echo "State is: ${{ env.BG_COLOR }}" # No output in same step
+
+    - name: Use the value with bash
+      shell: bash
+      run: echo "BG_COLOR=${{ env.BG_COLOR }}"
+
+  build_windows_latest:
+    runs-on: windows-latest
+    steps:
+    - name: Set BG_COLOR with pwsh
+      shell: pwsh
+      run: |
+        Add-Content -Path ${env:GITHUB_ENV} -Value "BG_COLOR=blue"
+        echo "BG_COLOR=${{ env.BG_COLOR }}"
+
+    - name: Set FG_COLOR with cmd
+      shell: cmd
+      run: |
+        printf "FG_COLOR=orange" >> %GITHUB_ENV%
+        printf "FG_COLOR=${{ env.FG_COLOR }}"
+
+    - name: Use values with pwsh
+      shell: pwsh
+      run: |
+        echo "BG_COLOR=${{ env.BG_COLOR }}"
+        echo "FG_COLOR=${{ env.FG_COLOR }}"
+
+    - name: Use values with cmd
+      shell: cmd
+      run: |
+        printf "BG_COLOR=${{ env.BG_COLOR }}\n"
+        printf "FG_COLOR=${{ env.FG_COLOR }}\n"
+
+  use_environment_var:
+    runs-on: windows-latest
+    environment: VARIABLES
+    steps:
+    - name: Print environment variables on cmd
+      shell: cmd
+      run: |
+        printf "ENV1=${{ vars.ENV1 }}\n"
+        printf "ENV2=${{ vars.ENV2 }}\n"
+
+    - name: Print environment variables on pwsh
+      run: |
+        echo "ENV1=${{ vars.ENV1 }}"
+        echo "ENV2=${{ vars.ENV2 }}"
+
+    - name: Print environment variables on bash
+      shell: bash
+      run: |
+        echo "ENV1=${{ vars.ENV1 }}"
+        echo "ENV2=${{ vars.ENV2 }}"
+
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+
+  check_msvc2019_directory:
+    runs-on: windows-latest
+    steps:
+      - name: Check MSVC2019 directory
+        run: |
+          cd "C:\\Program Files (x86)\\Microsoft Wisual Studio\\2019"
+          dir
