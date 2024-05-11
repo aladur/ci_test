@@ -41,6 +41,12 @@ jobs:
         printf "BG_COLOR=${{ env.BG_COLOR }}\n"
         printf "FG_COLOR=${{ env.FG_COLOR }}\n"
 
+    - name: Use values with bash
+      shell: bash
+      run: |
+        echo "BG_COLOR=${{ env.BG_COLOR }}"
+        echo "FG_COLOR=${{ env.FG_COLOR }}"
+
   use_environment_var:
     runs-on: windows-latest
     environment: VARIABLES
@@ -95,5 +101,9 @@ jobs:
     steps:
       - name: Check MSVC2019 directory
         run: |
+          cd "C:\\Program Files (x86)"
+          dir
+          cd "C:\\Program Files (x86)\\Microsoft Wisual Studio"
+          dir
           cd "C:\\Program Files (x86)\\Microsoft Wisual Studio\\2019"
           dir
