@@ -100,6 +100,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Check MSVC2019 directory
+        shell: cmd
         run: |
           cd "C:\\Program Files (x86)"
           dir
@@ -109,5 +110,12 @@ jobs:
           dir
           cd "C:\\Program Files\\Microsoft Visual Studio"
           dir
-          cd "C:\\Program Files\\Microsoft Visual Studio\\2019"
-          dir
+
+      - name: Check MSVC2019 directory with bash
+        shell: bash
+        run: |
+          cd "/c/Program Files (x86)"
+          find . -name 2019 -print
+          find . -name Enterprise -print
+          find . -name Professional -print
+          find . -name Community -print
