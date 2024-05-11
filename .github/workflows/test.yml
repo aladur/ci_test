@@ -102,6 +102,7 @@ jobs:
       - name: Check MSVC2019 directory
         shell: cmd
         run: |
+          C:
           cd "C:\\Program Files (x86)"
           dir
           cd "C:\\Program Files (x86)\\Microsoft Visual Studio"
@@ -111,8 +112,3 @@ jobs:
           cd "C:\\Program Files\\Microsoft Visual Studio"
           dir
 
-      - name: Check MSVC2019 directory with bash
-        shell: bash
-        run: |
-          cd "/c/Program Files (x86)"
-          find . -name "2019" -print
