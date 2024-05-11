@@ -42,7 +42,11 @@ jobs:
         shell: cmd
         run: |
           echo QT_ROOT_DIR=%QT_ROOT_DIR%
-          dir /s "${{ github.workspace }}\\Qt"
           set QTDIR="${{ github.workspace }}\\Qt\\${{ matrix.config.qt-version }}\\${{ matrix.config.arch1 }}"
-          dir /s "%QTDIR%"
+          echo QTDIR=%QTDIR%
+          dir "%QTDIR%"
+          dir "%QTDIR%\\bin"
+          dir "%QTDIR%\\lib"
+          dir "%QTDIR%\\include"
+          dir /s "%QTDIR%\\plugins"
 
