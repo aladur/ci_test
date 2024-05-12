@@ -2,6 +2,8 @@ on: [ push ]
 
 jobs:
   build_windows_latest:
+    env:
+      QTDIR: ${{ github.workspace }}\\Qt
     runs-on: windows-2019
     steps:
 
@@ -20,7 +22,6 @@ jobs:
     - name: Set environment variables
       shell: cmd
       run: |
-        printf "QTDIR=${{ github.workspace }}\Qt\n" >> %GITHUB_ENV%
         printf "QT_VERSION=5.15.2\n" >> %GITHUB_ENV%
         printf "TEST_VAR=C:\\Temp\\Sub1\\Sub2\n" >> %GITHUB_ENV%
 
@@ -36,9 +37,9 @@ jobs:
         echo QTDIR=${{ env.QTDIR }}
         echo QT_VERSION=${{ env.QT_VERSION }}
         echo TEST_VAR=${{ env.TEST_VAR }}
-        SET QTDIR=${{ env.QTDIR }}
         echo QTDIR=%QTDIR%
         echo QT_VERSION=%QT_VERSION%
+        echo TEST_VAR=%TEST_VAR%
 
     - name: Replace variables in msvcQtPath.props
       shell: cmd
