@@ -20,9 +20,9 @@ jobs:
     - name: Set environment variables
       shell: cmd
       run: |
-        printf "QTDIR=${{ github.workspace }}\Qt" >> %GITHUB_ENV%
-        printf "QT_VERSION=5.15.2" >> %GITHUB_ENV%
-        printf "TEST_VAR=C:\\Temp\\Sub1\\Sub2" >> %GITHUB_ENV%
+        printf "QTDIR=${{ github.workspace }}\Qt\n" >> %GITHUB_ENV%
+        printf "QT_VERSION=5.15.2\n" >> %GITHUB_ENV%
+        printf "TEST_VAR=C:\\Temp\\Sub1\\Sub2\n" >> %GITHUB_ENV%
 
     - name: Check environment variables
       shell: cmd
