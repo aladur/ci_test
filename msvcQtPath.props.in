@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <QTDIR>QTDIRPLACEHOLDER</QTDIR>
+    <QTVERSION>QTVERSIONPLACEHOLDER</QTVERSION>
+    <QTMAJOR>QTMAJORPLACEHOLDER</QTMAJOR>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="QTDIR">
+      <Value>$(QTDIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="QTVERSION">
+      <Value>$(QTVERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="QTMAJOR">
+      <Value>$(QTMAJOR)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

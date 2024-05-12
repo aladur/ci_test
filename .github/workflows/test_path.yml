@@ -1,0 +1,36 @@
+on: [ push ]
+
+jobs:
+  build_windows_latest:
+    runs-on: windows-2019
+    steps:
+    - name: Create and check vsversion.ini
+      shell: cmd
+      run: |
+          echo "VS_VERSION=2019" > vsversion.ini
+          echo "VS_TYPE=Enterprise" >> vsversion.ini
+          TYPE vsversion.ini
+
+    - name: Set environment variables
+      shell: cmd
+      run: |
+        echo "QTDIR=${{ github.workspace }}\Qt" >> %GITHUB_ENV%
+        echo "QT_VERSION=5.15.2" >> %GITHUB_ENV%
+        SET TEST_VAR=C:\\Temp\\Sub1\\Sub2
+
+    - name: Check environment variables
+      shell: cmd
+      run: |
+        printf "%QTDIR%\n"
+        printf "%QT_VERSION%\n"
+        printf "%TEST_VAR%\n"
+        echo QTDIR=%QTDIR%
+        echo QT_VERSION=%QT_VERSION%
+        echo TEST_VAR=%TEST_VAR%
+
+    - name: Replace variables in msvcQtPath.props
+      shell: cmd
+      run: |
+        powershell.exe setQtProperties.ps1 -inFile msvcQtPath.props.in -version %QT_VERSION%
+        TYPE msvcQtPath.props
+
