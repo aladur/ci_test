@@ -7,9 +7,11 @@ jobs:
     - name: Create and check vsversion.ini
       shell: cmd
       run: |
-          echo "VS_VERSION=2019" > vsversion.ini
-          echo "VS_TYPE=Enterprise" >> vsversion.ini
-          TYPE vsversion.ini
+        echo VS_VERSION=2019 > vsversion.ini
+        echo VS_TYPE=Enterprise >> vsversion.ini
+        echo === vsversions.ini contents begin ===
+        TYPE vsversion.ini
+        echo === vsversions.ini contents end ===
 
     - name: Set environment variables
       shell: cmd
@@ -17,6 +19,7 @@ jobs:
         echo "QTDIR=${{ github.workspace }}\Qt" >> %GITHUB_ENV%
         echo "QT_VERSION=5.15.2" >> %GITHUB_ENV%
         SET TEST_VAR=C:\\Temp\\Sub1\\Sub2
+        ECHO %TEST_VAR%
 
     - name: Check environment variables
       shell: cmd
@@ -27,10 +30,17 @@ jobs:
         echo QTDIR=%QTDIR%
         echo QT_VERSION=%QT_VERSION%
         echo TEST_VAR=%TEST_VAR%
+        echo QTDIR=${{ github.QTDIR }}
+        echo QT_VERSION=${{ github.QT_VERSION }}
+        echo TEST_VAR=${{ github.TEST_VAR }}
 
     - name: Replace variables in msvcQtPath.props
       shell: cmd
       run: |
+        DIR
+        SET QTDIR=C:\\Temp\\Sub1\\Sub2
         powershell.exe setQtProperties.ps1 -inFile msvcQtPath.props.in -version %QT_VERSION%
+        echo === msvcQtPath.props contents begin ===
         TYPE msvcQtPath.props
+        echo === msvcQtPath.props contents end ===
 
