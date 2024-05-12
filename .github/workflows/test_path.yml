@@ -4,6 +4,10 @@ jobs:
   build_windows_latest:
     runs-on: windows-2019
     steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Create and check vsversion.ini
       shell: cmd
       run: |
@@ -18,8 +22,7 @@ jobs:
       run: |
         echo "QTDIR=${{ github.workspace }}\Qt" >> %GITHUB_ENV%
         echo "QT_VERSION=5.15.2" >> %GITHUB_ENV%
-        SET TEST_VAR=C:\\Temp\\Sub1\\Sub2
-        ECHO %TEST_VAR%
+        echo "TEST_VAR=C:\\Temp\\Sub1\\Sub2" >> %GITHUB_ENV%
 
     - name: Check environment variables
       shell: cmd
@@ -30,9 +33,11 @@ jobs:
         echo QTDIR=%QTDIR%
         echo QT_VERSION=%QT_VERSION%
         echo TEST_VAR=%TEST_VAR%
-        echo QTDIR=${{ github.QTDIR }}
-        echo QT_VERSION=${{ github.QT_VERSION }}
-        echo TEST_VAR=${{ github.TEST_VAR }}
+        echo QTDIR=${{ env.QTDIR }}
+        echo QT_VERSION=${{ env.QT_VERSION }}
+        echo TEST_VAR=${{ env.TEST_VAR }}
+        SET QTDIR=${{ env.QTDIR }}
+        echo QTDIR=%QTDIR%
 
     - name: Replace variables in msvcQtPath.props
       shell: cmd
