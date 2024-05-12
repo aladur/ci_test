@@ -38,13 +38,15 @@ jobs:
         echo TEST_VAR=${{ env.TEST_VAR }}
         SET QTDIR=${{ env.QTDIR }}
         echo QTDIR=%QTDIR%
+        echo QT_VERSION=%QT_VERSION%
 
     - name: Replace variables in msvcQtPath.props
       shell: cmd
       run: |
         DIR
-        SET QTDIR=C:\\Temp\\Sub1\\Sub2
-        powershell.exe setQtProperties.ps1 -inFile msvcQtPath.props.in -version %QT_VERSION%
+        SET QTDIR=${{ env.QT_VERSION }}
+        SET QT_VERSION=${{ env.QT_VERSION }}
+        powershell.exe .\setQtProperties.ps1 -inFile msvcQtPath.props.in -version %QT_VERSION%
         echo === msvcQtPath.props contents begin ===
         TYPE msvcQtPath.props
         echo === msvcQtPath.props contents end ===
