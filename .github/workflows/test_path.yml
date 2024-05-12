@@ -45,7 +45,6 @@ jobs:
       shell: cmd
       run: |
         DIR
-        SET QTDIR=${{ env.QT_VERSION }}
         SET QT_VERSION=${{ env.QT_VERSION }}
         powershell.exe .\setQtProperties.ps1 -inFile msvcQtPath.props.in -version %QT_VERSION%
         echo === msvcQtPath.props contents begin ===
