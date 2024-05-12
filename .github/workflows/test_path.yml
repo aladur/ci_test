@@ -3,7 +3,7 @@ on: [ push ]
 jobs:
   build_windows_latest:
     env:
-      QTDIR: ${{ github.workspace }}\\Qt
+      QTDIR: ${{ github.workspace }}\Qt
     runs-on: windows-2019
     steps:
 
@@ -34,10 +34,8 @@ jobs:
         echo QTDIR=%QTDIR%
         echo QT_VERSION=%QT_VERSION%
         echo TEST_VAR=%TEST_VAR%
-        echo QTDIR=${{ env.QTDIR }}
         echo QT_VERSION=${{ env.QT_VERSION }}
         echo TEST_VAR=${{ env.TEST_VAR }}
-        echo QTDIR=%QTDIR%
         echo QT_VERSION=%QT_VERSION%
         echo TEST_VAR=%TEST_VAR%
 
@@ -45,8 +43,8 @@ jobs:
       shell: cmd
       run: |
         DIR
-        SET QT_VERSION=${{ env.QT_VERSION }}
-        powershell.exe .\setQtProperties.ps1 -inFile msvcQtPath.props.in -version %QT_VERSION%
+        echo QTDIR=%QTDIR%
+        powershell.exe .\setQtProperties.ps1 -inFile msvcQtPath.props.in -version ${{ env.QT_VERSION }}
         echo === msvcQtPath.props contents begin ===
         TYPE msvcQtPath.props
         echo === msvcQtPath.props contents end ===
