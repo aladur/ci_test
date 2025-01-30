@@ -9,7 +9,7 @@ jobs:
   qt5-test:
     strategy:
       matrix:
-        os: [ macos-latest ]
+        os: [ ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -26,12 +26,25 @@ jobs:
           submodules: 'true'
 
       - name: Install packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt list --upgradable
+          sudo apt-get install build-essential qtbase5-dev qtbase5-dev-tools libqt5x11extras5-dev
+      - name: Install packages
         if: runner.os == 'macOS'
         run: |
           brew install qt@5
           export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/qt@5/lib/pkgconfig"
           echo "$HOMEBREW_PREFIX/opt/qt@5/bin" >> $GITHUB_PATH
 
+      - name: Context
+        if: runner.os == 'Linux'
+        run: |
+          uname -a
+          echo `lscpu | grep "^CPU(s):"`
+          echo `lscpu | grep "Thread(s)"`
+          cmake --version
       - name: Context
         if: runner.os == 'macOS'
         run: |
@@ -43,10 +56,15 @@ jobs:
           echo "HOMEBREW_PREFIX:" $HOMEBREW_PREFIX
           cmake --version
           find $HOMEBREW_PREFIX/opt/qt@5/ -name Qt5WidgetsConfig.cmake
-          find $HOMEBREW_PREFIX/opt/qt@5/ -name qt5widgets-config.cmake
-          find $HOMEBREW_PREFIX/opt/qt@5/ -name Qt5X11ExtrasConfig.cmake
-          find $HOMEBREW_PREFIX/opt/qt@5/ -name qt5x11extras-config.cmake
+          find $HOMEBREW_PREFIX/opt/qt@5/ -name Qt5MacExtrasConfig.cmake
+          ls -lR $HOMEBREW_PREFIX/opt/qt@5/lib/cmake
 
+      - name: Configure
+        if: runner.os == 'Linux'
+        run: |
+          mkdir bld
+          cd bld
+          cmake ..
       - name: Configure
         if: runner.os == 'macOS'
         run: |

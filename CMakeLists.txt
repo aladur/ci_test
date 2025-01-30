@@ -18,5 +18,10 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt5 REQUIRED Core Widgets Gui X11Extras PrintSupport)
+find_package(Qt5 REQUIRED Core Widgets Gui PrintSupport)
+if(APPLE)
+    find_package(Qt5 REQUIRED MacExtras)
+elseif(UNIX)
+    find_package(Qt5 REQUIRED X11Extras)
+endif()
 
