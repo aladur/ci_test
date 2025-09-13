@@ -1,0 +1,10 @@
+image:
+  - Visual Studio 2019
+
+install:
+  - cmd: echo Current Working Directory is %CD%
+  - cmd: dir C:\Qt
+  - cmd: dir C:\Qt\5.15.2
+  - cmd: dir C:\Qt\6.5.3
+  - cmd: dir C:\Qt\5.15.2\bin
+  - cmd: dir C:\Qt\6.5.3\bin
